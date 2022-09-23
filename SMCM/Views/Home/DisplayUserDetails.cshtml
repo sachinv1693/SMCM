@@ -1,0 +1,63 @@
+﻿@using SmartMeterConsumerManagement.Models
+@model IEnumerable<UserModel>
+@{
+    ViewBag.Title = "User Details";
+}
+
+<h3>Displaying all user details...</h3>
+
+@if (ViewData["UsersData"] != null)
+{
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.User.Id)</th>
+                <th>@Html.DisplayNameFor(e => e.User.Role)</th>
+                <th>@Html.DisplayNameFor(e => e.User.EmailAddress)</th>
+                <th>@Html.DisplayNameFor(e => e.User.FirstName)</th>
+                <th>@Html.DisplayNameFor(e => e.User.LastName)</th>
+                <th>@Html.DisplayNameFor(e => e.User.LanguageSelected)</th>
+                <th>@Html.DisplayNameFor(e => e.User.SmartMeterId)</th>
+                <th>@Html.DisplayNameFor(e => e.UserLocation.Id)</th>
+                <th>@Html.DisplayNameFor(e => e.UserLocation.BlockNumber)</th>
+                <th>@Html.DisplayNameFor(e => e.UserLocation.ApartmentName)</th>
+                <th>@Html.DisplayNameFor(e => e.UserLocation.Street)</th>
+                <th>@Html.DisplayNameFor(e => e.UserLocation.City)</th>
+                <th>@Html.DisplayNameFor(e => e.UserLocation.State)</th>
+                <th>@Html.DisplayNameFor(e => e.UserLocation.Pincode)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var userModel in (IEnumerable<UserModel>)ViewData["UsersData"])
+            {
+                <tr>
+                    <td>@userModel.User.Id</td>
+                    <td>@userModel.User.Role</td>
+                    <td>@userModel.User.EmailAddress</td>
+                    <td>@userModel.User.FirstName</td>
+                    <td>@userModel.User.LastName</td>
+                    <td>@userModel.User.LanguageSelected</td>
+                    @if (userModel.User.SmartMeterId != null)
+                    {
+                        <td>@userModel.User.SmartMeterId</td>
+                    }
+                    else
+                    {
+                        <td>NIL</td>
+                    }
+                    <td>@userModel.UserLocation.Id</td>
+                    <td>@userModel.UserLocation.BlockNumber</td>
+                    <td>@userModel.UserLocation.ApartmentName</td>
+                    <td>@userModel.UserLocation.Street</td>
+                    <td>@userModel.UserLocation.City</td>
+                    <td>@userModel.UserLocation.State</td>
+                    <td>@userModel.UserLocation.Pincode</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>There are no users to display!</h3>
+}

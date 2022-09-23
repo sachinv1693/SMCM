@@ -1,0 +1,38 @@
+﻿@using SmartMeterConsumerManagement.Models.DBContext
+@model IEnumerable<UserRequest>
+@{
+    ViewBag.Title = "Get User Requests";
+}
+
+<h3>Displaying your requests</h3>
+
+@if (ViewData["MyRequests"] != null)
+{
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.Id)</th>
+                <th>@Html.DisplayNameFor(e => e.UserEmailId)</th>
+                <th>@Html.DisplayNameFor(e => e.Type)</th>
+                <th>@Html.DisplayNameFor(e => e.Date)</th>
+                <th>@Html.DisplayNameFor(e => e.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in (IEnumerable<UserRequest>)ViewData["MyRequests"])
+            {
+                <tr>
+                    <td width="100px">@request.Id</td>
+                    <td width="100px">@request.UserEmailId</td>
+                    <td width="100px">@request.Type</td>
+                    <td width="100px">@request.Date</td>
+                    <td width="100px">@request.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>You have never raised any requests!</h3>
+}

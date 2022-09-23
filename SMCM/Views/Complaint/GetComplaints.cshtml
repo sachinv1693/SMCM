@@ -1,0 +1,40 @@
+﻿@using SmartMeterConsumerManagement.Models.DBContext
+@model IEnumerable<Complaint>
+@{
+    ViewBag.Title = "Get Consumer Complaints";
+}
+
+<h3>Displaying your complaints</h3>
+
+@if (ViewData["MyComplaints"] != null)
+{
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.Id)</th>
+                <th>@Html.DisplayNameFor(e => e.ConsumerEmailId)</th>
+                <th>@Html.DisplayNameFor(e => e.Type)</th>
+                <th>@Html.DisplayNameFor(e => e.Message)</th>
+                <th>@Html.DisplayNameFor(e => e.Date)</th>
+                <th>@Html.DisplayNameFor(e => e.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var complaint in (IEnumerable<Complaint>)ViewData["MyComplaints"])
+            {
+                <tr>
+                    <td width="100px">@complaint.Id</td>
+                    <td width="100px">@complaint.ConsumerEmailId</td>
+                    <td width="100px">@complaint.Type</td>
+                    <td width="400px">@complaint.Message</td>
+                    <td width="100px">@complaint.Date</td>
+                    <td width="100px">@complaint.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>You have never raised any complaints!</h3>
+}

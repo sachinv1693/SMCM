@@ -1,0 +1,68 @@
+﻿@using SmartMeterConsumerManagement.Models.DBContext
+@model IEnumerable<UserRequest>
+@{
+    ViewBag.Title = "New User Requests";
+}
+
+<h3>Displaying New User Requests Data</h3>
+
+@if (ViewData["UserRequestData"] != null)
+{
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.Id)</th>
+                <th>@Html.DisplayNameFor(e => e.UserEmailId)</th>
+                <th>@Html.DisplayNameFor(e => e.Type)</th>
+                <th>@Html.DisplayNameFor(e => e.Date)</th>
+                <th>@Html.DisplayNameFor(e => e.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in (IEnumerable<UserRequest>)ViewData["UserRequestData"])
+            {
+                <tr>
+                    <td width="100px">@request.Id</td>
+                    <td width="100px">@request.UserEmailId</td>
+                    <td width="100px">@request.Type</td>
+                    <td width="100px">@request.Date</td>
+                    <td width="100px">@request.Status</td>
+                    @if (request.Status.Trim() == "NOT_GRANTED")
+                    {
+                        <td>
+                            <form action="" method="post">
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(model => request.Id)
+                                @Html.HiddenFor(model => request.UserEmailId)
+                                @Html.HiddenFor(model => request.Date)
+                                @Html.HiddenFor(model => request.Type)
+                                @Html.HiddenFor(model => request.Status)
+                                <input type="submit" value="Approve Request" class="btn btn-default" />
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (@ViewData["IsRequestApproved"] != null)
+    {
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        @if ((bool)ViewData["IsRequestApproved"])
+        {
+            <script type="text/javascript">
+                alert("Request has been approved!");
+            </script>
+        }
+        else
+        {
+            <script type="text/javascript">
+            alert("Failed to approve this request!\n" + '@ViewData["UnApprovalMessage"]');
+            </script>
+        }
+    }
+}
+else
+{
+    <h3>There are no user requests to display!</h3>
+}

@@ -1,0 +1,70 @@
+﻿@using SmartMeterConsumerManagement.Models.DBContext
+@model IEnumerable<Bill>
+@{
+    ViewBag.Title = "Billing";
+}
+
+<h3>Displaying your bills..</h3>
+
+
+@if (ViewData["ConsumerBills"] != null)
+{
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.Id)</th>
+                <th>@Html.DisplayNameFor(e => e.ConsumerEmailId)</th>
+                <th>@Html.DisplayNameFor(e => e.Date)</th>
+                <th>@Html.DisplayNameFor(e => e.SmartMeterId)</th>
+                <th>@Html.DisplayNameFor(e => e.CurrentReadingUnit)</th>
+                <th>@Html.DisplayNameFor(e => e.PreviousReadingUnit)</th>
+                <th>@Html.DisplayNameFor(e => e.CurrentBillingAmount)</th>
+                <th>@Html.DisplayNameFor(e => e.PreviousBillingAmount)</th>
+                <th>@Html.DisplayNameFor(e => e.CurrentBillingMonth)</th>
+                <th>@Html.DisplayNameFor(e => e.PaymentStatus)</th>
+                <th>@Html.DisplayNameFor(e => e.PaymentType)</th>
+                <th>@Html.DisplayNameFor(e => e.PaymentDate)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bill in (IEnumerable<Bill>)ViewData["ConsumerBills"])
+            {
+            <tr>
+                <td width="100px">@bill.Id</td>
+                <td width="100px">@bill.ConsumerEmailId</td>
+                <td width="100px">@bill.Date</td>
+                <td width="100px">@bill.SmartMeterId</td>
+                <td width="100px">@bill.CurrentReadingUnit</td>
+                <td width="100px">@bill.PreviousReadingUnit</td>
+                <td width="100px">@bill.CurrentBillingAmount</td>
+                <td width="100px">@bill.PreviousBillingAmount</td>
+                <td width="100px">@bill.CurrentBillingMonth</td>
+                <td width="100px">@bill.PaymentStatus</td>
+                @if (bill.PaymentStatus.Trim() != "PAID")
+                {
+                    <td width="100px">No Selection</td>
+                    <td width="100px">
+                        @Html.ActionLink("Make Payment", "MakePayment", "Payment", new { @id = bill.Id }, null)
+                    </td>
+                }
+                else
+                {
+                    <td width="100px">@bill.PaymentType</td>
+                    @if (bill.PaymentDate != null)
+                    {
+                        <td width="100px">@bill.PaymentDate</td>
+                    }
+                    else
+                    {
+                        <td width="100px">NIL</td>
+                    }
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>There are no bills to display!</h3>
+}

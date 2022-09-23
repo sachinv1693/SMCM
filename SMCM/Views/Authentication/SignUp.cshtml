@@ -1,0 +1,148 @@
+﻿@model SmartMeterConsumerManagement.Models.UserModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "User Registration";
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form asp-action="SignUp" method="post" role="form" class="form-horizontal">
+                @Html.AntiForgeryToken()
+
+                <h4>Sign up into Electicity Portal</h4>
+                <hr />
+                @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.EmailAddress, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(m => m.User.EmailAddress, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.EmailAddress, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.Password, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(m => m.User.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.Password, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.FirstName, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.FirstName, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.LastName, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.LastName, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.MobileNumber, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.User.MobileNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.MobileNumber, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.LabelFor(model => model.User.UserCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*ViewBag.RequestTypes is holding all the request type values*@
+                    @Html.DropDownListFor(model => model.User.UserCategory, ViewBag.UserCategories as SelectList, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.User.UserCategory, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.User.LanguageSelected, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.User.LanguageSelected, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.User.LanguageSelected, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <h4>Add your location</h4>
+                <hr />
+                @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserLocation.BlockNumber, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(m => m.UserLocation.BlockNumber, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserLocation.BlockNumber, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserLocation.ApartmentName, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(m => m.UserLocation.ApartmentName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserLocation.ApartmentName, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserLocation.Street, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(m => m.UserLocation.Street, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserLocation.Street, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserLocation.City, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(m => m.UserLocation.City, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserLocation.City, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserLocation.State, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.UserLocation.State, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserLocation.State, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserLocation.Pincode, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.UserLocation.Pincode, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserLocation.Pincode, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-primary">Sign Up</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("To login page", "Login")
+</div>
+
+@if (@ViewData["IsNewUserAdded"] != null)
+{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    @if ((bool)ViewData["IsNewUserAdded"])
+    {
+        <script type="text/javascript">
+            alert("Success!\nYour account has been successfully created.\nYou can login anytime with your credentials now.");
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            alert("Fatal error!\nFailed to create this user's account.\nFeel free to contact your supervisor.");
+        </script>
+    }
+    <script type="text/javascript">
+        window.location = '/Home/Index';
+    </script>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

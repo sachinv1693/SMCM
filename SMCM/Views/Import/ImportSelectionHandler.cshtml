@@ -1,0 +1,50 @@
+﻿@using SmartMeterConsumerManagement.Enums;
+@model SmartMeterConsumerManagement.Models.ImportDataModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Import Selection Handler";
+}
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        @Html.AntiForgeryToken()
+        <hr />
+        @if (@Html.ValueFor(model => model.ImportDataType) == ImportType.CSV_FILE_IMPORT.ToString())
+        {
+            <section>
+                <form method="post" enctype="multipart/form-data" asp-controller="ImportSelectionHandler" asp-action="Import">
+                    <span>Select File:</span>
+                    <input type="file" name="postedFiles" multiple />
+                    <input type="submit" value="Upload" />
+                    @Html.ValidationMessage("InvalidFileSelection")
+                    <br />
+                    <span style="color:green">@Html.Raw(ViewBag.Message)</span>
+                </form>
+            </section>
+
+            @if (@ViewData["ImportSuccessful"] != null)
+            {
+                <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                
+                @if ((bool)ViewData["ImportSuccessful"]) {
+                    <script type="text/javascript">
+                        alert("Import Successful: The database has been updated.");
+                    </script>
+                }
+                else
+                {
+                    <script type="text/javascript">
+                        alert("Import failed: Error in updating database!\nCould be because you're trying to import duplicate entries.");
+                    </script>
+                }
+            }
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back", "GetLegacyUsers", "Import")
+</div>

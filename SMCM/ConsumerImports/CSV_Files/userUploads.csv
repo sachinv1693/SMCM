@@ -1,0 +1,4 @@
+Role,EmailAddress,Password,FirstName,LastName,MobileNumber,LanguageSelected,HasLoggedIn,CreatedAt,SessionTimerCount,SmartMeterId,LocationId,UserCategory
+GENERAL_USER,sameer@gmail.com,sameer,Sameer,Desai,8658658658,English,false,7/1/2022 3:12:56 PM,,,746d87dd-5fa2-417e-8aa0-538y6uff510a,RESIDENTIAL
+GENERAL_USER,rahul@gmail.com,rahul,Rahul,Sinha,7644443331,English,false,2/17/2022 3:44:44 PM,,,746d87dd-5ka2-417e-8yu0-538y6uff999a,INDUSTRIAL
+GENERAL_USER,kishore@gmail.com,kishore,Kishore,Maity,8080949445,English,false,3/10/2022 1:14:24 PM,,,735r79dd-5ka2-417e-8lu0-538y6ugf969z,COMMERCIAL

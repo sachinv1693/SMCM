@@ -1,0 +1,202 @@
+﻿@model SmartMeterConsumerManagement.Models.UserModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Profile</h2>
+@{var role = @User.Claims.ToList()[1].Value;}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.User.Id)
+        @Html.HiddenFor(model => model.User.EmailAddress)
+        @Html.HiddenFor(model => model.User.Bills)
+        @Html.HiddenFor(model => model.User.Complaints)
+        @Html.HiddenFor(model => model.User.CreatedAt)
+        @Html.HiddenFor(model => model.User.HasLoggedIn)
+        @Html.HiddenFor(model => model.User.Location)
+        @Html.HiddenFor(model => model.User.LocationId)
+        @Html.HiddenFor(model => model.User.Role)
+        @Html.HiddenFor(model => model.User.UserCategory)
+        @Html.HiddenFor(model => model.User.SessionTimerCount)
+        @Html.HiddenFor(model => model.User.SmartMeterId)
+        @Html.HiddenFor(model => model.UserLocation.Id)
+        @Html.HiddenFor(model => model.UserLocation.AreaCode)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.User.Password, new { Value = Model.User.Password })
+                @Html.ValidationMessageFor(model => model.User.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.MobileNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.LanguageSelected, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.LanguageSelected, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.LanguageSelected, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <hr />
+        @if (role == "CONSUMER")
+        {
+            <p>Note: You cannot edit your location details! You need to raise the 'Change of Address' request.</p>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLocation.BlockNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (role == "CONSUMER")
+                {
+                    @Html.EditorFor(model => model.UserLocation.BlockNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.UserLocation.BlockNumber, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.UserLocation.BlockNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLocation.ApartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (role == "CONSUMER")
+                {
+                    @Html.EditorFor(model => model.UserLocation.ApartmentName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.UserLocation.ApartmentName, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.UserLocation.ApartmentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLocation.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (role == "CONSUMER")
+                {
+                    @Html.EditorFor(model => model.UserLocation.Street, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.UserLocation.Street, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.UserLocation.Street, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLocation.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (role == "CONSUMER")
+                {
+                    @Html.EditorFor(model => model.UserLocation.City, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.UserLocation.City, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.UserLocation.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLocation.State, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (role == "CONSUMER")
+                {
+                    @Html.EditorFor(model => model.UserLocation.State, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.UserLocation.State, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.UserLocation.State, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserLocation.Pincode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @if (role == "CONSUMER")
+                {
+                    @Html.EditorFor(model => model.UserLocation.Pincode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                }
+                else
+                {
+                    @Html.EditorFor(model => model.UserLocation.Pincode, new { htmlAttributes = new { @class = "form-control" } })
+                }
+                @Html.ValidationMessageFor(model => model.UserLocation.Pincode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Home", "Index")
+</div>
+
+@if (@ViewData["EditedSuccessfully"] != null)
+{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    @if ((bool)ViewData["EditedSuccessfully"])
+    {
+        <script type="text/javascript">
+                alert("Successfully updated your profile.");
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+                alert("Failed to update your profile.\nFirst Name, Last Name, Password, Mobile Number and all location details\ncannot be empty fields.");
+        </script>
+    }
+    <script type="text/javascript">
+            window.location = '/Home/Index';
+    </script>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("~/Views/Shared/_ValidationScriptsPartial.cshtml");}
+}

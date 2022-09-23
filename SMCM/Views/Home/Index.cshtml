@@ -1,0 +1,79 @@
+﻿@model SmartMeterConsumerManagement.Models.DBContext.User
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Electricity Portal Home";
+}
+
+<h2>Welcome To Electricity Portal</h2>
+@{var role = @User.Claims.ToList()[1].Value;}
+<li>
+    @Html.ActionLink("Edit Profile", "Edit", "Home", new { @class = "elements" }, null)
+</li>
+
+@if (role == "GENERAL_USER")
+{
+    <li>
+        @Html.ActionLink("Request a service", "UserRequest", "Home", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("View My Requests", "ViewRequests", "Home", new { @class = "elements" }, null)
+    </li>
+}
+
+@if (role == "PROJECT_MANAGER")
+{
+    <li>
+        @Html.ActionLink("Import Consumers", "GetLegacyUsers", "Import", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("View and Fix Consumer Complaints", "ConsumerComplaints", "Complaint", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Display All User Details", "DisplayUserDetails", "Home", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Get Bill Issue Status", "GetConsumerConsumption", "Home", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Get Total Consumer Consumption", "GetConsumerConsumption", "Home", new { @class = "elements" }, null)
+    </li>
+}
+
+@if (role == "CONSUMER")
+{
+    <li>
+        @Html.ActionLink("Raise Complaint", "RaiseComplaint", "Complaint", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("View My Complaints", "GetComplaints", "Complaint", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("Request a service", "UserRequest", "Home", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("View My Requests", "ViewRequests", "Home", new { @class = "elements" }, null)
+    </li>
+
+    <li>
+        @Html.ActionLink("View My Bills", "ViewBills", "Payment", new { @class = "elements" }, null)
+    </li>
+}
+
+@if (role == "SUPERVISOR")
+{
+    <li>
+        @Html.ActionLink("New User Requests", "NewUserRequests", "Home", new { @class = "elements" }, null)
+    </li>
+
+    @*<li>
+        @Html.ActionLink("Refund Consumer Payments", "Refunds", "Home", new { @class = "elements" }, null)
+    </li>*@
+}

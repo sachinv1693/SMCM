@@ -1,0 +1,168 @@
+﻿@model SmartMeterConsumerManagement.Models.DBContext.Bill
+@{
+    ViewBag.Title = "Make Payment";
+}
+
+<h3>Select a Payment Method and Proceed To Pay this bill</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConsumerEmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ConsumerEmailId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.ConsumerEmailId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.SmartMeterId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SmartMeterId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.SmartMeterId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.PreviousReadingUnit, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PreviousReadingUnit, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.PreviousReadingUnit, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.PreviousBillingAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PreviousBillingAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.PreviousBillingAmount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.CurrentBillingMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CurrentBillingMonth, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.CurrentBillingMonth, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.CurrentReadingUnit, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CurrentReadingUnit, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.CurrentReadingUnit, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.CurrentBillingAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CurrentBillingAmount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.CurrentBillingAmount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+
+    @Html.HiddenFor(e => e.PaymentStatus)
+
+    @if (Model.PaymentType == null)
+    {
+        @Html.LabelFor(model => model.PaymentType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*ViewBag.PaymentTypes is holding all the payment type values*@
+            @Html.DropDownListFor(model => model.PaymentType, ViewBag.PaymentTypes as SelectList, new { @class = "form-control", @required = true })
+            @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
+        </div>
+    }
+    else
+    {
+        @Html.LabelFor(model => model.PaymentType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PaymentType, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.PaymentType, "", new { @class = "text-danger" })
+        </div>
+    }
+
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Pay" class="btn btn-default" />
+        </div>
+    </div>
+
+    @if (@ViewData["PaymentSuccessful"] != null)
+    {
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        @if ((bool)ViewData["PaymentSuccessful"])
+        {
+            <script type="text/javascript">
+                alert("Successfully received the bill payment!\nThank you.");
+            </script>
+        }
+        else
+        {
+            <script type="text/javascript">
+                alert("Sorry! Payment failed!\nYou may try again by selecting a different payment method.");
+            </script>
+        }
+        <script type="text/javascript">
+            window.location = '/Payment/ViewBills';
+        </script>
+    }
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to Bills", "ViewBills", "Payment")
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("~/Views/Shared/_ValidationScriptsPartial.cshtml");}
+}

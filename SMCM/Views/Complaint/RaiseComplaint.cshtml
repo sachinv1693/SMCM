@@ -1,0 +1,67 @@
+﻿@model SmartMeterConsumerManagement.Models.DBContext.Complaint
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Consumer Complaints";
+}
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form asp-action="RaiseComplaint" method="post" role="form" class="form-horizontal">
+                @Html.AntiForgeryToken()
+                <h4>Register a complaint</h4>
+                <hr />
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.ConsumerEmailId, new { Value = @User.FindFirst("UserEmail").Value })
+                        @*ViewBag.RequestTypes is holding all the request type values*@
+                        @Html.DropDownListFor(model => model.Type, ViewBag.ComplaintTypes as SelectList, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Message, new { @class = "col-md-6 control-label" })
+                    <div class="col-md-6">
+                        @Html.TextBoxFor(m => m.Message, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Message, string.Empty, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back", "Index", "Home")
+</div>
+
+@if (@ViewData["ComplaintRaised"] != null)
+{
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    @if ((bool)ViewData["ComplaintRaised"])
+    {
+        <script type="text/javascript">
+                alert("Successfully raised the complaint.");
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+                alert("Failed to raise your complaint. Please contact your supervisor.");
+        </script>
+    }
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

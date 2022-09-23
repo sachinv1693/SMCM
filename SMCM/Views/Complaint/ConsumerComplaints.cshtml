@@ -1,0 +1,55 @@
+﻿@using SmartMeterConsumerManagement.Models.DBContext
+@model IEnumerable<Complaint>
+@{
+    ViewBag.Title = "Consumer Complaints";
+}
+
+<h3>Displaying Consumer complaints</h3>
+
+@if (ViewData["ConsumerComplaints"] != null)
+{
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(e => e.Id)</th>
+                <th>@Html.DisplayNameFor(e => e.ConsumerEmailId)</th>
+                <th>@Html.DisplayNameFor(e => e.Type)</th>
+                <th>@Html.DisplayNameFor(e => e.Message)</th>
+                <th>@Html.DisplayNameFor(e => e.Date)</th>
+                <th>@Html.DisplayNameFor(e => e.Status)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var complaint in (IEnumerable<Complaint>)ViewData["ConsumerComplaints"])
+            {
+            <tr>
+                <td width="100px">@complaint.Id</td>
+                <td width="100px">@complaint.ConsumerEmailId</td>
+                <td width="100px">@complaint.Type</td>
+                <td width="400px">@complaint.Message</td>
+                <td width="100px">@complaint.Date</td>
+                <td width="100px">@complaint.Status</td>
+                @if (complaint.Status.Trim() != "RESOLVED")
+                {
+                    <td>
+                        <form action="" method="post">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => complaint.Id)
+                            @Html.HiddenFor(model => complaint.ConsumerEmailId)
+                            @Html.HiddenFor(model => complaint.Date)
+                            @Html.HiddenFor(model => complaint.Message)
+                            @Html.HiddenFor(model => complaint.Type)
+                            @Html.HiddenFor(model => complaint.Status)
+                            <input type="submit" value="Resolve" class="btn btn-default" />
+                        </form>
+                    </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>There are no consumer complaints to display!</h3>
+}
